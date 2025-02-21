@@ -1,0 +1,38 @@
+experiment:
+  backend: tensorflow
+  data_config:
+    strategy: fixed
+    train_path: ../data/{0}/trainingset_explicit.tsv
+    validation_path: ../data/{0}/validationset_explicit.tsv
+    test_path: ../data/{0}/testset_explicit.tsv
+    side_information:
+      - dataloader: WordsTextualAttributesPreprocessed
+        all_item_texts: ../data/{0}/all_item_texts.npy
+        all_user_texts: ../data/{0}/all_user_texts.npy
+        embed_vocabulary: ../data/{0}/embed_vocabulary.npy
+        item_to_user: ../data/{0}/item_to_user.npy
+        item_to_user_to_item: ../data/{0}/item_to_user_to_item.npy
+        user_to_item: ../data/{0}/user_to_item.npy
+        user_to_item_to_user: ../data/{0}/user_to_item_to_user.npy
+  dataset: amazon_boys_girls
+  top_k: 50
+  evaluation:
+    cutoffs: [10, 20, 50]
+    simple_metrics: [Recall, nDCG, MAR, EPC, EFD, Gini, SEntropy, ItemCoverage]
+    relevance_threshold: 4
+  gpu: 0
+  external_models_path: ../external/models/__init__.py
+  models:
+    external.RMG:
+      meta:
+        hyper_max_evals: 10
+        hyper_opt_alg: tpe
+        verbose: True
+        save_recs: True
+        save_weights: True
+        validation_rate: 20
+      lr: [loguniform, -11.512925465, -2.30258509299]
+      d: 0.2
+      epochs: 400
+      batch_size: 256
+      be: 16
