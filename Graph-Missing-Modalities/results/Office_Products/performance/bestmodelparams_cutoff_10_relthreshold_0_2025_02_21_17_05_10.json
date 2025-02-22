@@ -1,0 +1,17 @@
+[
+    {
+        "default_validation_metric": "Recall",
+        "default_validation_cutoff": 10,
+        "rel_threshold": 0
+    },
+    {
+        "meta": {
+            "verbose": true,
+            "save_recs": false
+        },
+        "recommender": "MostPop",
+        "configuration": {
+            "name": "MostPop"
+        }
+    }
+]
